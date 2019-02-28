@@ -1,11 +1,20 @@
 {
-  "name": "tradingsystem",
+  "name": "trading-system",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "push": "git add . && git commit -m 'ok' && git push"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/toyss/trading-system.git"
   },
   "author": "liupei",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/toyss/trading-system/issues"
+  },
+  "homepage": "https://github.com/toyss/trading-system#readme"
 }
