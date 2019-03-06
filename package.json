@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "push": "git add . && git commit -m 'ok' && git push"
+    "push": "git add . && git commit -m 'ok' && git push",
+    "dev": "node index"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/toyss/trading-system/issues"
   },
-  "homepage": "https://github.com/toyss/trading-system#readme"
+  "homepage": "https://github.com/toyss/trading-system#readme",
+  "dependencies": {
+    "@okfe/okex-node": "0.0.48",
+    "mysql2": "^1.6.5",
+    "text-table": "^0.2.0"
+  }
 }
