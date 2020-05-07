@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Popup</title>
+    </head>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            font-size: 1rem;
+            font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            color: #304455;
+        }
+        #app {
+            width: 220px;
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        ul.table {
+            list-style: none;
+            padding-inline-start: 0;
+        }
+        li.table-item {
+            box-shadow: 5px 5px 5px #eee;
+        }
+        .table-item-name {
+            display: inline-block;
+            width: 40px;
+        }
+        .table-item-price {
+            display: inline-block;
+            width: 70px;
+            text-align: right;
+        }
+        .table-item-link {
+            cursor: pointer;
+            display: inline-block;
+            width: 50px;
+            text-align: center;
+            color: #6c3f9f;
+        }
+        #remind {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 20px;
+            height: 20px;
+            background: url('./img/remind.png');
+            background-size: 100% 100%;
+            cursor: pointer;
+        }
+        #remind.ban {
+            background: url('./img/ban-remind.png');
+            background-size: 100% 100%;
+        }
+    </style>
+    <script src="/js/jquery.min.js"></script>
+    <body>
+        <div id="app">
+            <div id="loading">正在加载中...</div>
+        </div>
+        <div id="remind"></div>
+        <script src="/js/popup.js"></script>
+    </body>
+</html>

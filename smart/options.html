@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+                font-size: 1rem;
+                font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+                -webkit-font-smoothing: antialiased;
+                color: #304455;
+                width: 210px;
+                height: 320px;
+            }
+            #app {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+            }
+            ul.table {
+                list-style: none;
+                padding-inline-start: 0;
+            }
+            li.table-item {
+                box-shadow: 5px 5px 5px #eee;
+                margin-bottom: 5px;
+            }
+            .table-item-name {
+                display: inline-block;
+                width: 40px;
+            }
+            .table-item-upper,
+            .table-item-under {
+                display: inline-block;
+                width: 70px;
+                height: 30px;
+            }
+            .options {
+                position: absolute;
+                bottom: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 150px;
+            }
+            #save,
+            #clear {
+                width: 70px;
+                height: 30px;
+                color: #555;
+                cursor: pointer;
+            }
+        </style>
+        <script src="/js/jquery.min.js"></script>
+    </head>
+    <body>
+        <div id="app"></div>
+        <div class="options">
+            <button id="clear">清空</button>
+            <button id="save">保存</button>
+        </div>
+        <script src="/js/options.js"></script>
+    </body>
+</html>
