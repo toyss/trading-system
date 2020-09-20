@@ -27,12 +27,12 @@ function calculateMA(rows, n) {
     const len = rows.length;
 
     rows.forEach((_, index) => {
-        if (len - index < n) {
+        if (index < n - 1) {
             result.push(undefined);
             return;
         }
 
-        const sum = rows.slice(index, index + n).reduce((a, b) => Number(a) + Number(b.close), 0);
+        const sum = rows.slice(index + 1 - n, index + 1).reduce((a, b) => Number(a) + Number(b.close), 0);
 
         result.push(sum / n);
     });
@@ -58,5 +58,5 @@ function debounce(func, delay = 400) {
 
         clearTimeout(timer);
         timer = setTimeout(() => func.apply(context, args), delay);
-    }
+    };
 }
