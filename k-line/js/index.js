@@ -39,7 +39,7 @@ const GRANULARITIES = bgJs.getGranularities();
 const app = document.getElementById(appId);
 const panel = document.getElementById(panelId);
 const chart = LightweightCharts.createChart(app, options);
-const candlestickSeries = chart.addCandlestickSeries();
+const candlestickSeries = chart.addLineSeries({ lineWidth: 1 });
 const fastBBILineSeries = chart.addLineSeries({
     color: fastColor,
     lineWidth: 1,
@@ -74,12 +74,15 @@ function renderKLabel(row) {
     const rate = ((row.close - row.open) * 100) / (isRise ? row.open : row.close);
 
     container.innerHTML = `
-        <div>高：<span style="color: ${color}">${getNum(row.high)}</span></div>
-        <div>开：<span style="color: ${color}">${getNum(row.open)}</span></div>
-        <div>收：<span style="color: ${color}">${getNum(row.close)}</span></div>
-        <div>低：<span style="color: ${color}">${getNum(row.low)}</span></div>
-        <div>率：<span style="color: ${color}">${getNum(rate)}%</span></div>
+        <div>值：<span style="color: ${color}">${getNum(row)}</span></div>
     `;
+    // container.innerHTML = `
+    //     <div>高：<span style="color: ${color}">${getNum(row.high)}</span></div>
+    //     <div>开：<span style="color: ${color}">${getNum(row.open)}</span></div>
+    //     <div>收：<span style="color: ${color}">${getNum(row.close)}</span></div>
+    //     <div>低：<span style="color: ${color}">${getNum(row.low)}</span></div>
+    //     <div>率：<span style="color: ${color}">${getNum(rate)}%</span></div>
+    // `;
 
     app.append(container);
 }
@@ -169,7 +172,10 @@ function render(responseData = []) {
     });
     candlestickData.forEach((item) => {
         window.globalRowData.push(item);
-        candlestickSeries.update(item);
+        candlestickSeries.update({
+            time: item.time,
+            value: item.close,
+        });
     });
 
     const fastBBILineData = calculateBBI(window.globalRowData, 5, 10, 20, 30).map((value, index) => {

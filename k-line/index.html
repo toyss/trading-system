@@ -1,61 +1,70 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>K-LINE</title>
-        <style>
-            body {
-                padding: 0;
-                margin: 0;
-                font-size: 1rem;
-                font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
-                -webkit-font-smoothing: antialiased;
-                color: #304455;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-            }
-            #chart {
-                position: relative;
-                border: 1px solid #eee;
-            }
-            #control-panel {
-                width: 250px;
-                height: 600px;
-                border: 1px solid #eee;
-                border-left: none;
-                padding: 20px 10px;
-                box-sizing: border-box;
-            }
-            #k-label-container,
-            #bbi-label-container {
-                position: absolute;
-                top: 1rem;
-                left: 3rem;
-                z-index: 999;
-                width: 6.5rem;
-                pointer-events: none;
-            }
-            #bbi-label-container {
-                left: 11rem;
-            }
-            #k-label-container div,
-            #bbi-label-container div {
-                margin-bottom: 0.2rem;
-            }
-            #k-label-container div span,
-            #bbi-label-container div span {
-                display: inline-block;
-                width: 4.2rem;
-                text-align: right;
-            }
-        </style>
-        <script src="js/lightweight-charts.js"></script>
-    </head>
-    <body>
-        <div id="chart"></div>
-        <script src="js/util.js"></script>
-        <script src="js/index.js"></script>
-    </body>
+
+<head>
+    <meta charset="utf-8" />
+    <title>MECHAN</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            font-size: 1rem;
+            font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            color: #304455;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #chart {
+            position: relative;
+            border: 1px solid #eee;
+        }
+
+        #control-panel {
+            width: 250px;
+            height: 600px;
+            border: 1px solid #eee;
+            border-left: none;
+            padding: 20px 10px;
+            box-sizing: border-box;
+        }
+
+        #k-label-container,
+        #bbi-label-container {
+            position: absolute;
+            top: 1rem;
+            left: 3rem;
+            z-index: 999;
+            width: 6.5rem;
+            pointer-events: none;
+        }
+
+        #bbi-label-container {
+            left: 11rem;
+        }
+
+        #k-label-container div,
+        #bbi-label-container div {
+            margin-bottom: 0.2rem;
+        }
+
+        #k-label-container div span,
+        #bbi-label-container div span {
+            display: inline-block;
+            width: 4.2rem;
+            text-align: right;
+        }
+    </style>
+    <script src="js/lightweight-charts.js"></script>
+</head>
+
+<body>
+    <div id="chart"></div>
+    <script src="js/util.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
 </html>
