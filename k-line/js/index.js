@@ -4,6 +4,7 @@ const fastColor = '#b2379a';
 const slowColor = '#333333';
 
 const appId = 'chart';
+const appId1 = 'pertain-chart';
 const panelId = 'control-panel';
 const kLabelId = 'k-label-container';
 const bbiLabelId = 'bbi-label-container';
@@ -39,7 +40,7 @@ const GRANULARITIES = bgJs.getGranularities();
 const app = document.getElementById(appId);
 const panel = document.getElementById(panelId);
 const chart = LightweightCharts.createChart(app, options);
-const candlestickSeries = chart.addLineSeries({ lineWidth: 1 });
+const candlestickSeries = chart.addCandlestickSeries();
 const fastBBILineSeries = chart.addLineSeries({
     color: fastColor,
     lineWidth: 1,
@@ -74,15 +75,12 @@ function renderKLabel(row) {
     const rate = ((row.close - row.open) * 100) / (isRise ? row.open : row.close);
 
     container.innerHTML = `
-        <div>值：<span style="color: ${color}">${getNum(row)}</span></div>
+        <div>高：<span style="color: ${color}">${getNum(row.high)}</span></div>
+        <div>开：<span style="color: ${color}">${getNum(row.open)}</span></div>
+        <div>收：<span style="color: ${color}">${getNum(row.close)}</span></div>
+        <div>低：<span style="color: ${color}">${getNum(row.low)}</span></div>
+        <div>率：<span style="color: ${color}">${getNum(rate)}%</span></div>
     `;
-    // container.innerHTML = `
-    //     <div>高：<span style="color: ${color}">${getNum(row.high)}</span></div>
-    //     <div>开：<span style="color: ${color}">${getNum(row.open)}</span></div>
-    //     <div>收：<span style="color: ${color}">${getNum(row.close)}</span></div>
-    //     <div>低：<span style="color: ${color}">${getNum(row.low)}</span></div>
-    //     <div>率：<span style="color: ${color}">${getNum(rate)}%</span></div>
-    // `;
 
     app.append(container);
 }
@@ -132,8 +130,7 @@ function handleCrosshairMoved(param) {
 }
 
 async function handleVisibleTimeRangeChange(range) {
-    window.lastFrom = window.globalRowData[window.globalRowData.length - 1].time;
-
+    window.lastFrom = window.globalRowData[0].time;
     if (range.from === window.lastFrom && window.lastFrom > 1508083200) {
         const position = chart.timeScale().scrollPosition();
         await getKData('BTC', lastFrom * 1000, GRANULARITIES['4h']).then((resp) => render(resp.data));
@@ -155,7 +152,7 @@ function getKData(coin, lastTime, granularity) {
         // end: getISOTime(lastTime),
         // granularity,
         symbol: `${params.get('b')}_CQ`,
-        period: `${periods[params.get('p')]}`,
+        period: `${periods[params.get('p')] || params.get('p')}`,
         size: 2000,
     });
 }
@@ -168,13 +165,17 @@ function render(responseData = []) {
             high: item.high,
             low: item.low,
             close: item.close,
+            vol: item.vol,
         };
     });
     candlestickData.forEach((item) => {
         window.globalRowData.push(item);
         candlestickSeries.update({
             time: item.time,
-            value: item.close,
+            open: item.open,
+            high: item.high,
+            low: item.low,
+            close: item.close,
         });
     });
 
@@ -189,7 +190,7 @@ function render(responseData = []) {
         fastBBILineSeries.update(item);
     });
 
-    const slowBBILineData = calculateBBI(window.globalRowData, 30, 60, 80, 120).map((value, index) => {
+    const slowBBILineData = calculateBBI(window.globalRowData, 30, 60, 90, 120).map((value, index) => {
         window.globalRowData[index].slow = value || undefined;
         return {
             time: window.globalRowData[index].time,
@@ -199,6 +200,7 @@ function render(responseData = []) {
     slowBBILineData.forEach((item) => {
         slowBBILineSeries.update(item);
     });
+    console.log(JSON.stringify(globalRowData));
 }
 
 function loadControlOptions() {
@@ -220,7 +222,7 @@ window.onload = () => {
     slowBBILineSeries.setData([]);
 
     chart.subscribeCrosshairMove(handleCrosshairMoved);
-    chart.subscribeVisibleTimeRangeChange(debounce(handleVisibleTimeRangeChange));
+    // chart.subscribeVisibleTimeRangeChange(debounce(handleVisibleTimeRangeChange));
 
     loadControlOptions();
 

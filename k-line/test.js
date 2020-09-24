@@ -63,13 +63,13 @@ function nonePosition(row, index, data) {
         return;
     }
 
-    if (aboveSpace(prevRow.close, prevRow.fast, prevRow.slow) && aboveSpace(row.close, row.fast, row.slow)) {
+    if (aboveSpace(row.close, row.fast, row.slow)) {
         operation.direction = 1;
         operation.start = row.close;
         operation.startTime = new Date(row.time * 1000).toLocaleString();
     }
 
-    if (belowSpace(prevRow.close, prevRow.fast, prevRow.slow) && belowSpace(row.close, row.fast, row.slow)) {
+    if (belowSpace(row.close, row.fast, row.slow)) {
         operation.direction = -1;
         operation.start = row.close;
         operation.startTime = new Date(row.time * 1000).toLocaleString();
@@ -86,8 +86,8 @@ function longPosition(row, index, data) {
 
     if (aboveSpace(prevRow.close, prevRow.fast, prevRow.slow) && (row.close < row.fast || row.close < row.slow)) {
         operation.end = row.close;
-        operation.diff = operation.end - operation.start - (operation.start * storage.fee);
-        operation.gain = operation.diff * 20;
+        operation.diff = operation.end - operation.start - operation.start * storage.fee;
+        operation.gain = operation.diff;
         operation.endTime = new Date(row.time * 1000).toLocaleString();
         storage.profit += operation.gain;
         operation.profit = storage.profit;
@@ -106,8 +106,8 @@ function bearPosition(row, index, data) {
 
     if (belowSpace(prevRow.close, prevRow.fast, prevRow.slow) && (row.close > row.fast || row.close > row.slow)) {
         operation.end = row.close;
-        operation.diff = operation.start - operation.end - (operation.start * storage.fee);
-        operation.gain = operation.diff * 20;
+        operation.diff = operation.start - operation.end - operation.start * storage.fee;
+        operation.gain = operation.diff;
         operation.endTime = new Date(row.time * 1000).toLocaleString();
         storage.profit += operation.gain;
         operation.profit = storage.profit;
